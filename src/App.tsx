@@ -1,9 +1,9 @@
-import EarthGlobe from './components/EarthGlobe';
+import YunnanGisMap from './components/YunnanGisMap';
 
 export default function App() {
   return (
-    <main className="earth-stage">
-      <EarthGlobe />
+    <main className="gis-stage">
+      <YunnanGisMap />
     </main>
   );
 }
