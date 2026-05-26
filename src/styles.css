@@ -1,3 +1,7 @@
+/* ================================================================
+   移动端优先 (Mobile-First) — 默认样式即手机端样式
+   ================================================================ */
+
 :root {
   color: #ecfbff;
   background: #031018;
@@ -62,110 +66,145 @@ body::before {
   overflow: hidden;
 }
 
+canvas {
+  display: block;
+}
+
+/* ================================================================
+   手机端默认 UI 组件
+   ================================================================ */
+
+/* ---- HUD 信息面板：顶部超窄条 ---- */
 .gis-map__hud {
   position: absolute;
-  top: clamp(18px, 2.2vw, 34px);
-  left: clamp(18px, 2.2vw, 34px);
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 2;
-  display: grid;
-  gap: 6px;
-  padding: 14px 18px;
-  border: 1px solid rgba(123, 235, 255, 0.28);
-  background: linear-gradient(135deg, rgba(5, 24, 35, 0.78), rgba(8, 42, 54, 0.48));
-  box-shadow: inset 0 0 30px rgba(60, 216, 255, 0.09), 0 18px 50px rgba(0, 0, 0, 0.24);
-  backdrop-filter: blur(12px);
-  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(123, 235, 255, 0.22);
+  background: linear-gradient(180deg, rgba(5, 24, 35, 0.94), rgba(8, 42, 54, 0.78));
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(10px);
 }
 
 .gis-map__hud strong {
   color: #ffffff;
-  font-size: clamp(1.35rem, 2vw, 2.1rem);
-  line-height: 1;
-  letter-spacing: 0.04em;
-  text-shadow: 0 0 18px rgba(80, 220, 255, 0.42);
+  font-size: 0.82rem;
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+  text-shadow: 0 0 12px rgba(80, 220, 255, 0.38);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .gis-map__hud span {
-  color: rgba(236, 251, 255, 0.72);
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
+  color: rgba(236, 251, 255, 0.64);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
+/* ---- 导航栏：底部 tab 栏 ---- */
 .gis-map__nav {
   position: absolute;
-  right: clamp(18px, 2.2vw, 34px);
-  top: clamp(18px, 2.2vw, 34px);
-  z-index: 2;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
   display: flex;
-  gap: 8px;
+  gap: 3px;
   align-items: center;
-  padding: 8px;
-  border: 1px solid rgba(123, 235, 255, 0.22);
-  background: rgba(5, 24, 35, 0.58);
-  backdrop-filter: blur(12px);
+  padding: 4px 6px;
+  overflow-x: auto;
+  border-top: 1px solid rgba(123, 235, 255, 0.22);
+  background: rgba(5, 24, 35, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.gis-map__nav::-webkit-scrollbar {
+  display: none;
 }
 
 .gis-map__nav button {
-  min-width: 66px;
-  height: 34px;
-  padding: 0 12px;
-  color: rgba(236, 251, 255, 0.76);
+  flex-shrink: 0;
+  min-width: 40px;
+  height: 28px;
+  padding: 0 8px;
+  color: rgba(236, 251, 255, 0.78);
+  font-size: 0.66rem;
   cursor: pointer;
   background: rgba(8, 42, 54, 0.56);
-  border: 1px solid rgba(123, 235, 255, 0.22);
+  border: 1px solid rgba(123, 235, 255, 0.2);
+  white-space: nowrap;
 }
 
 .gis-map__nav button:hover,
 .gis-map__nav button.is-active {
   color: #061018;
   background: #8ff5ff;
-  box-shadow: 0 0 18px rgba(80, 230, 255, 0.34);
+  box-shadow: 0 0 12px rgba(80, 230, 255, 0.3);
 }
 
+/* ---- 下级列表：可折叠底部面板（默认隐藏） ---- */
 .gis-map__children {
   position: absolute;
-  right: clamp(18px, 2.2vw, 34px);
-  bottom: clamp(18px, 2.2vw, 34px);
+  bottom: 36px;
+  left: 0;
+  right: 0;
   z-index: 2;
-  width: min(340px, calc(100vw - 36px));
-  max-height: 42vh;
-  padding: 12px;
+  width: auto;
+  max-height: 30vh;
+  padding: 6px 8px;
   overflow: hidden;
-  border: 1px solid rgba(123, 235, 255, 0.22);
-  background: rgba(5, 24, 35, 0.62);
-  box-shadow: inset 0 0 30px rgba(60, 216, 255, 0.07), 0 18px 50px rgba(0, 0, 0, 0.24);
-  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(123, 235, 255, 0.18);
+  background: rgba(5, 24, 35, 0.84);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(10px);
+  display: none;
+}
+
+.gis-map__children.is-open {
+  display: block;
 }
 
 .gis-map__children span {
   display: block;
-  margin-bottom: 10px;
-  color: rgba(236, 251, 255, 0.72);
-  font-size: 12px;
+  margin-bottom: 4px;
+  color: rgba(236, 251, 255, 0.64);
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
 }
 
 .gis-map__children div {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-  max-height: calc(42vh - 46px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  max-height: calc(30vh - 28px);
   overflow: auto;
-  padding-right: 2px;
+  -webkit-overflow-scrolling: touch;
 }
 
 .gis-map__children button {
-  min-height: 32px;
-  padding: 0 8px;
+  min-height: 28px;
+  padding: 0 4px;
   overflow: hidden;
   color: rgba(236, 251, 255, 0.82);
-  font-size: 12px;
+  font-size: 10px;
   text-overflow: ellipsis;
   white-space: nowrap;
   cursor: pointer;
   background: rgba(8, 42, 54, 0.58);
-  border: 1px solid rgba(123, 235, 255, 0.18);
+  border: 1px solid rgba(123, 235, 255, 0.16);
 }
 
 .gis-map__children button:hover {
@@ -174,6 +213,33 @@ body::before {
   border-color: rgba(255, 244, 164, 0.92);
 }
 
+/* ---- 子列表切换按钮（移动端） ---- */
+.gis-map__children-toggle {
+  position: absolute;
+  bottom: 36px;
+  right: 6px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  color: #ecfbff;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  background: rgba(8, 42, 54, 0.72);
+  border: 1px solid rgba(123, 235, 255, 0.28);
+  backdrop-filter: blur(8px);
+}
+
+.gis-map__children-toggle:hover {
+  background: #8ff5ff;
+  color: #061018;
+}
+
+/* ---- 城市标注 / 地球热点 ---- */
 .city-label {
   pointer-events: auto;
 }
@@ -181,16 +247,16 @@ body::before {
 .city-label button,
 .earth-hotspot button {
   display: block;
-  padding: 4px 8px;
+  padding: 2px 5px;
   color: #f7feff;
-  font-size: 12px;
+  font-size: 9px;
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
-  text-shadow: 0 0 10px rgba(2, 16, 24, 0.95), 0 0 18px rgba(40, 230, 255, 0.56);
+  text-shadow: 0 0 8px rgba(2, 16, 24, 0.95), 0 0 14px rgba(40, 230, 255, 0.48);
   background: rgba(2, 16, 24, 0.5);
-  border: 1px solid rgba(126, 239, 255, 0.32);
-  border-radius: 4px;
+  border: 1px solid rgba(126, 239, 255, 0.3);
+  border-radius: 3px;
   cursor: pointer;
 }
 
@@ -207,12 +273,12 @@ body::before {
 }
 
 .earth-hotspot button {
-  padding: 6px 10px;
+  padding: 4px 7px;
   color: #071018;
-  font-size: 13px;
+  font-size: 10px;
   background: rgba(255, 212, 90, 0.92);
   border-color: rgba(255, 241, 165, 0.92);
-  box-shadow: 0 0 22px rgba(255, 212, 90, 0.34);
+  box-shadow: 0 0 16px rgba(255, 212, 90, 0.28);
   text-shadow: none;
 }
 
@@ -222,47 +288,184 @@ body::before {
 
 .terrain-source span {
   display: block;
-  padding: 4px 8px;
-  color: rgba(236, 251, 255, 0.68);
-  font-size: 11px;
+  padding: 2px 5px;
+  color: rgba(236, 251, 255, 0.58);
+  font-size: 8px;
   line-height: 1;
   white-space: nowrap;
-  background: rgba(2, 16, 24, 0.52);
-  border: 1px solid rgba(123, 235, 255, 0.18);
-  border-radius: 3px;
+  background: rgba(2, 16, 24, 0.48);
+  border: 1px solid rgba(123, 235, 255, 0.14);
+  border-radius: 2px;
 }
 
-canvas {
-  display: block;
-}
-
-@media (max-width: 720px) {
+/* ================================================================
+   平板 (≥600px)
+   ================================================================ */
+@media (min-width: 600px) {
   .gis-map__hud {
-    right: 16px;
-    left: 16px;
-  }
-
-  .gis-map__nav {
-    top: auto;
-    right: 16px;
-    bottom: 16px;
-    left: 16px;
-    justify-content: center;
-  }
-
-  .gis-map__children {
-    right: 16px;
-    bottom: 76px;
-    left: 16px;
-    width: auto;
-    max-height: 28vh;
-  }
-
-  .gis-map__children div {
-    max-height: calc(28vh - 46px);
+    top: 10px;
+    left: 10px;
+    right: auto;
+    max-width: calc(100vw - 20px);
+    padding: 10px 14px;
+    gap: 3px;
+    border: 1px solid rgba(123, 235, 255, 0.24);
+    border-bottom: 1px solid rgba(123, 235, 255, 0.24);
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+    background: linear-gradient(135deg, rgba(5, 24, 35, 0.78), rgba(8, 42, 54, 0.48));
+    box-shadow: inset 0 0 30px rgba(60, 216, 255, 0.09), 0 18px 50px rgba(0, 0, 0, 0.24);
   }
 
   .gis-map__hud strong {
-    font-size: 1.28rem;
+    font-size: 1rem;
+  }
+
+  .gis-map__hud span {
+    font-size: 0.7rem;
+  }
+
+  .gis-map__nav {
+    top: 10px;
+    right: 10px;
+    bottom: auto;
+    left: auto;
+    padding: 4px 6px;
+    gap: 4px;
+    border: 1px solid rgba(123, 235, 255, 0.2);
+    border-top: 1px solid rgba(123, 235, 255, 0.2);
+    background: rgba(5, 24, 35, 0.58);
+    overflow-x: visible;
+  }
+
+  .gis-map__nav button {
+    min-width: 48px;
+    height: 28px;
+    padding: 0 8px;
+    font-size: 0.7rem;
+  }
+
+  .gis-map__children {
+    right: 10px;
+    bottom: 10px;
+    left: auto;
+    width: 280px;
+    max-height: 38vh;
+    border: 1px solid rgba(123, 235, 255, 0.2);
+    border-top: 1px solid rgba(123, 235, 255, 0.2);
+    display: block;
+  }
+
+  .gis-map__children div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+    max-height: calc(38vh - 28px);
+  }
+
+  .gis-map__children button {
+    min-height: 28px;
+    font-size: 11px;
+  }
+
+  .gis-map__children-toggle {
+    display: none;
+  }
+
+  .city-label button,
+  .earth-hotspot button {
+    font-size: 11px;
+    padding: 3px 7px;
+  }
+
+  .earth-hotspot button {
+    font-size: 12px;
+    padding: 5px 9px;
+  }
+
+  .terrain-source span {
+    font-size: 10px;
+  }
+}
+
+/* ================================================================
+   桌面 (≥1024px) — 恢复原有宽松布局
+   ================================================================ */
+@media (min-width: 1024px) {
+  .gis-map__hud {
+    top: clamp(18px, 2.2vw, 34px);
+    left: clamp(18px, 2.2vw, 34px);
+    max-width: none;
+    padding: 14px 18px;
+    gap: 6px;
+    border: 1px solid rgba(123, 235, 255, 0.28);
+    border-bottom: 1px solid rgba(123, 235, 255, 0.28);
+    background: linear-gradient(135deg, rgba(5, 24, 35, 0.78), rgba(8, 42, 54, 0.48));
+    box-shadow: inset 0 0 30px rgba(60, 216, 255, 0.09), 0 18px 50px rgba(0, 0, 0, 0.24);
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  }
+
+  .gis-map__hud strong {
+    font-size: clamp(1.35rem, 2vw, 2.1rem);
+  }
+
+  .gis-map__hud span {
+    font-size: 0.9rem;
+  }
+
+  .gis-map__nav {
+    right: clamp(18px, 2.2vw, 34px);
+    top: clamp(18px, 2.2vw, 34px);
+    padding: 8px;
+    gap: 8px;
+    border: 1px solid rgba(123, 235, 255, 0.22);
+    border-top: 1px solid rgba(123, 235, 255, 0.22);
+  }
+
+  .gis-map__nav button {
+    min-width: 66px;
+    height: 34px;
+    padding: 0 12px;
+    font-size: 0.88rem;
+  }
+
+  .gis-map__children {
+    right: clamp(18px, 2.2vw, 34px);
+    bottom: clamp(18px, 2.2vw, 34px);
+    width: 340px;
+    max-height: 42vh;
+    padding: 12px;
+    border: 1px solid rgba(123, 235, 255, 0.22);
+    border-top: 1px solid rgba(123, 235, 255, 0.22);
+  }
+
+  .gis-map__children span {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .gis-map__children div {
+    gap: 8px;
+    max-height: calc(42vh - 46px);
+  }
+
+  .gis-map__children button {
+    min-height: 32px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+  .city-label button,
+  .earth-hotspot button {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .earth-hotspot button {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .terrain-source span {
+    font-size: 11px;
+    padding: 4px 8px;
   }
 }

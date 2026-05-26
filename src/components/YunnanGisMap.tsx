@@ -1337,6 +1337,7 @@ export default function YunnanGisMap() {
   const [view, setView] = useState<DrillView>('earth');
   const [selectedPrefectureId, setSelectedPrefectureId] = useState<string | null>(null);
   const [selectedCountyId, setSelectedCountyId] = useState<string | null>(null);
+  const [childrenOpen, setChildrenOpen] = useState(false);
   const selectedPrefecture = useMemo(
     () => prefectures.find((prefecture) => prefecture.id === selectedPrefectureId) ?? prefectures[0],
     [selectedPrefectureId],
@@ -1415,20 +1416,30 @@ export default function YunnanGisMap() {
       </div>
 
       {childList.length > 0 ? (
-        <div className="gis-map__children" aria-label="下级行政区列表">
-          <span>{view === 'province' ? '州/市' : '县/区/市'}</span>
-          <div>
-            {childList.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => (view === 'province' ? openPrefecture(item.id) : openCounty(item.id))}
-              >
-                {item.name}
-              </button>
-            ))}
+        <>
+          <button
+            type="button"
+            className="gis-map__children-toggle"
+            aria-label={childrenOpen ? '收起列表' : '展开列表'}
+            onClick={() => setChildrenOpen(!childrenOpen)}
+          >
+            {childrenOpen ? '✕' : '☰'}
+          </button>
+          <div className={`gis-map__children${childrenOpen ? ' is-open' : ''}`} aria-label="下级行政区列表">
+            <span>{view === 'province' ? '州/市' : '县/区/市'}</span>
+            <div>
+              {childList.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => (view === 'province' ? openPrefecture(item.id) : openCounty(item.id))}
+                >
+                  {item.name}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        </>
       ) : null}
 
       {view === 'earth' ? (
